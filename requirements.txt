@@ -1,4 +1,5 @@
-statsapi
+MLB-StatsAPI
 openai
 sendgrid
 requests
+python-dotenv
