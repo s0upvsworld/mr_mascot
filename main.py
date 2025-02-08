@@ -12,7 +12,9 @@ pretty_games_schedule = json.dumps(games_schedule, indent=4)
 pretty_today_game = json.dumps(today_game, indent=4)
 pretty_tomorrow_game = json.dumps(tomorrow_game, indent=4)
 
-print(f"Pretty Games Schedule: {pretty_games_schedule}\n\nPretty Today Game: {pretty_today_game}\n\nPretty Tomorrow Game: {pretty_tomorrow_game}")
+print(
+    f"Pretty Games Schedule: {pretty_games_schedule}\n\nPretty Today Game: {pretty_today_game}\n\nPretty Tomorrow Game: {pretty_tomorrow_game}"
+)
 
 game_stats, game_highlights = sta(team, games_schedule).last_game()
 

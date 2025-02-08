@@ -1,5 +1,7 @@
 import statsapi
+import json
 from app.utils import Utilities as ut
+
 
 class Schedule:
     def __init__(self, team):
@@ -49,7 +51,7 @@ class Schedule:
         for today in games_schedule:
             if today["game_date"] == str(self.today):
                 today_game = today
-        
+
         # return tomorrow's game
         tomorrow_game = None
         for tomorrow in games_schedule:
@@ -58,8 +60,11 @@ class Schedule:
 
         return games_schedule, today_game, tomorrow_game
 
+
 if __name__ == "__main__":
     team = "New York Mets"
-    (pretty_schedule, today_game) = Schedule(team).seven_day_schedule()
-    print(f"{pretty_schedule}\n\n{today_game}")
+    (games_schedule, today_game, tomorrow_game) = Schedule(team).seven_day_schedule()
+    # make pretty
+    pretty_schedule = json.dumps(games_schedule, indent=4)
+    print(f"{pretty_schedule}\n\n{today_game}\n\n{tomorrow_game}")
     print(f"type: {type(pretty_schedule)}")

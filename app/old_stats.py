@@ -211,7 +211,6 @@ if __name__ == "__main__":
     print(f"{yesterday_pretty_game_stats}\n\n{pretty_game_stats}\n\n{pretty_schedule}")
 
 
-
 """
 
 Ok I need these things,

@@ -1,16 +1,17 @@
 import statsapi
 from app.utils import Utilities as ut
 
+
 class GameStats:
     def __init__(self, team, schedule):
         self.team = team
-        self.teamId = "121" # nym
+        self.teamId = "121"  # nym
         self.yesterday = ut().yesterday_date()
         self.yesterday_gameStats = statsapi.schedule(
             team=self.teamId, date=self.yesterday
         )
         self.schedule = schedule
-    
+
     def last_game(self):
         last_game_stats = statsapi.schedule(team=self.teamId, date=self.yesterday)
         if not last_game_stats:
@@ -34,7 +35,8 @@ class GameStats:
             }
             game_highlights = statsapi.game_highlights(gameId)
         return game_stats, game_highlights
-    
+
+
 if __name__ == "__main__":
     schedule = [
         {
@@ -44,7 +46,7 @@ if __name__ == "__main__":
             "venue_name": "Angel Stadium",
             "series_status": "NYM leads 1-0",
             "series_game_number": 1,
-            "series_length": 3
+            "series_length": 3,
         },
         {
             "game_date": "2024-08-03",
@@ -53,7 +55,7 @@ if __name__ == "__main__":
             "venue_name": "Angel Stadium",
             "series_status": "Series tied 1-1",
             "series_game_number": 2,
-            "series_length": 3
+            "series_length": 3,
         },
         {
             "game_date": "2024-08-04",
@@ -62,12 +64,9 @@ if __name__ == "__main__":
             "venue_name": "Angel Stadium",
             "series_status": "LAA wins 2-1",
             "series_game_number": 3,
-            "series_length": 3
-        }
+            "series_length": 3,
+        },
     ]
     team = "New York Mets"
-    (
-        pretty_last_game_stats,
-        game_highlights
-    ) = GameStats(team, schedule).last_game()
+    (pretty_last_game_stats, game_highlights) = GameStats(team, schedule).last_game()
     print(f"{pretty_last_game_stats}\n\n{game_highlights}")

@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 import random
 
+
 class Utilities:
     def __init__(self):
         self.today = datetime.now().date().strftime("%Y-%m-%d")
@@ -23,7 +24,7 @@ class Utilities:
         minus_seven = self.today - (timedelta(days=7))
         seven = self.today + (timedelta(days=7))
         return minus_seven, seven
-    
+
     def roll_d4():
         return random.randint(1, 4)
 
