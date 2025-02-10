@@ -5,9 +5,9 @@ from utils import Utilities as ut
 
 class Prompts:
     def __init__(
-        self, game_stats, game_highlights, games_schedule, today_game
+        self, game_stats, game_highlights, games_schedule, today_game, today_team, tomorrow_game, tomorrow_team
     ):
-        self.personality_roll = ut().roll_d4()
+        #self.personality_roll = ut().roll_d4()
         dayoff_roll = ut().roll_d4()
         if dayoff_roll == 4:
             self.dayoff = "Mrs. Met History"
@@ -19,7 +19,15 @@ class Prompts:
             self.game_highlights = None
             self.today_game = today_game
             self.games_schedule = games_schedule
+            if today_game is None:
+                self.next_game is tomorrow_game
+                self.next_team is tomorrow_team
+            else:
+                self.next_game is today_game
+                self.next_team is today_team
         else:
+            self.next_game = None
+            self.next_team = None
             self.game_date = game_stats["game_date"]
             self.game_summary = game_stats["summary"]
             self.ballpark = game_stats["venue_name"]
@@ -31,6 +39,8 @@ class Prompts:
             self.today_game = today_game
 
         self.mascot = None
+
+
 
     def personality(self):
         default_personality = """
@@ -64,26 +74,21 @@ class Prompts:
         prompt_length = "In four sentences and no more than 100 words"
         if not self.game_stats:
             body_prompt = f"""
-            Introduce yourself. Start with a note that the Mets did not play yesterday. {prompt_length} give a fact of {self.dayoff}. Do not mention the Miracle Mets. End with some sort of question like Isnt that neat, Friend? or Dont you think thats cool, Friend? or something similar.
+            Introduce yourself. Start with a note that the Mets did not play yesterday. {prompt_length} give a fact of {self.dayoff}. End with some sort of question like Isnt that neat, Friend? or Dont you think thats cool, Friend? or something similar.
             """
         else:
             mascot_body_summary = """
             give a summary of the game
             """
             body_prompt = f"""
-            Introduce yourself. Then, {prompt_length} {mascot_body_summary}. Note the ballpark and city the game was played in. Mention one key highlight that showcases the Met\'s performance. If they won then be very excited. If they lost remain hopeful.\n\nHere is the last game\'s data.\n\n The score: {self.game_summary},\n\nThe highlights: {self.highlights},\n\nGame Date: {self.game_date},\n\nBallpark: {self.ballpark}.
+            Introduce yourself. Then, {prompt_length}, {mascot_body_summary}. Note the ballpark and city the game was played in and . Mention one key highlight that showcases the Met\'s performance. If they won then be very excited. If they lost remain hopeful.\n\nHere is the last game\'s data.\n\n The score: {self.game_summary},\n\nThe highlights: {self.highlights},\n\nGame Date: {self.game_date},\n\nBallpark: {self.ballpark}.
             """
         return body_prompt
 
     def email_end(self):
-        if self.mascot == "Wally the Green Monster":
-            end_prompt = """
-            In one sentence wish the reader well and say \'Let\'s Go Red Sox!\' or something endearing. Sign the end.
-            """
-        else:
-            end_prompt = """
-            In one sentence recognize the doubleheader being played today at Truist Park against the Braves and how much these games matter if the Mets make the post-season or not. Then, n one sentence wish the reader well and say \'Let\'s Go Mets!\' or something endearing. Sign the end.
-            """
+        end_prompt = f"""
+        Note the next game will be {self.next_game} against the {self.next_team} {self.series_length}. Then in one sentence wish the reader well and say \'Let\'s Go Mets!\' and something endearing. Sign the end.
+        """
         return end_prompt
 
 

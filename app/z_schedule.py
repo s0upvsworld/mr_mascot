@@ -1,14 +1,14 @@
 import statsapi
 import json
 from app.utils import Utilities as ut
+from datetime import datetime
 
 
 class Schedule:
     def __init__(self, team):
         self.team = team
         self.teamId = "121"
-        self.today = ut().today_date()
-        self.tomorrow = ut().tomorrow_date()
+        self.yesterday = ut().yesterday_date()
         self.start_date, self.end_date = ut().seven_days()
 
     def seven_day_schedule(self):
@@ -42,29 +42,56 @@ class Schedule:
             for index, game in enumerate(series):
                 game["series_game_number"] = index + 1
                 game["series_length"] = series_length
+        
+        # seperate next game
+        next_game = None
+        for game in games_schedule:
+            game_date = datetime.strptime(game["game_date"], "%Y-%m-%d").date()
+            if game_date > self.yesterday:
+                next_game = game
+
+        return games_schedule, next_game
 
         # make pretty
         # pretty_schedule = json.dumps(games_schedule, indent=4)
+        # print(pretty_schedule)
 
-        # return today's game
-        today_game = None
-        for today in games_schedule:
-            if today["game_date"] == str(self.today):
-                today_game = today
 
-        # return tomorrow's game
-        tomorrow_game = None
-        for tomorrow in games_schedule:
-            if tomorrow["game_date"] == str(self.tomorrow):
-                tomorrow_game = tomorrow
+    # def next_game_info(self):
 
-        return games_schedule, today_game, tomorrow_game
+    #     next_game = None
+    #     next_game = []
+    #     for game in games_schedule:
+    #         if game["game_date"] > self.yesterday:
+    #             next_game = game
+
+
+    # # return today's game
+    #     today_game = None
+    #     for today in games_schedule:
+    #         if today["game_date"] == str(self.today):
+    #             today_game = today
+    #             if today["away_name"] == "New York Mets":
+    #                 today_team = today["home_name"]
+    #             series_length = today["series_length"]
+
+    #     # return tomorrow's game
+    #     tomorrow_game = None
+    #     for tomorrow in games_schedule:
+    #         if tomorrow["game_date"] == str(self.tomorrow):
+    #             tomorrow_game = tomorrow
+    #             if tomorrow["away_name"] == "New York Mets":
+    #                 tomorrow_team = today["home_name"]
+    #             series_length = tomorrow["series_length"]
+
+    #     return today_game, tomorrow_game, series_length
 
 
 if __name__ == "__main__":
     team = "New York Mets"
-    (games_schedule, today_game, tomorrow_game) = Schedule(team).seven_day_schedule()
-    # make pretty
+    sch = Schedule(team)
+    (games_schedule, next_game) = sch.seven_day_schedule()
+
     pretty_schedule = json.dumps(games_schedule, indent=4)
-    print(f"{pretty_schedule}\n\n{today_game}\n\n{tomorrow_game}")
-    print(f"type: {type(pretty_schedule)}")
+    pretty_next_game = json.dumps(next_game, indent=4)
+    print(f"{pretty_schedule}\n\n{pretty_next_game}")
