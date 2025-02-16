@@ -26,6 +26,8 @@ class GameInfo:
             game_info = {
                 "game_id": game.get("game_id", None),
                 "game_date": game.get("game_date", None),
+                "winning_team": game.get("winning_team", None),
+                "summary": game.get("summary", None),
                 "away_name": game.get("away_name", None),
                 "home_name": game.get("home_name", None),
                 "venue_name": game.get("venue_name", None),
@@ -46,7 +48,6 @@ class GameInfo:
                 game["series_game_number"] = index + 1
                 game["series_length"] = series_length
 
-
         # get last and next game info
         last_game = None
         last_game_highlights = None
@@ -57,9 +58,11 @@ class GameInfo:
                 last_game = game
                 game_id = game["game_id"]
                 highlights = statsapi.game_highlights(game_id)
-                highlights_a = re.sub(r'http[s]?://\S+', '--', highlights)
-                highlights_b = re.sub(r'\(00:\d{2}:\d{2}\)', '', highlights_a)
-                last_game_highlights = re.sub(r'Condensed Game:.*', '', highlights_b, flags=re.DOTALL)
+                highlights_a = re.sub(r"http[s]?://\S+", "--", highlights)
+                highlights_b = re.sub(r"\(00:\d{2}:\d{2}\)", "", highlights_a)
+                last_game_highlights = re.sub(
+                    r"Condensed Game:.*", "", highlights_b, flags=re.DOTALL
+                )
                 break
             else:
                 last_game = None
@@ -72,10 +75,13 @@ class GameInfo:
 
         return last_game, last_game_highlights, next_game
 
+
 if __name__ == "__main__":
     team = "New York Mets"
     # sch.seven_day_schedule()
-    last_game, last_game_highlights, next_game = GameInfo(team).last_next_game_schedule()
+    last_game, last_game_highlights, next_game = GameInfo(
+        team
+    ).last_next_game_schedule()
     # (pretty_last_game_stats, game_highlights) = GameStats(team, games_schedule).last_game()
     pretty_last_game = json.dumps(last_game, indent=4)
     pretty_next_game = json.dumps(next_game, indent=4)

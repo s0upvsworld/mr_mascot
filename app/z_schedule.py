@@ -42,7 +42,7 @@ class Schedule:
             for index, game in enumerate(series):
                 game["series_game_number"] = index + 1
                 game["series_length"] = series_length
-        
+
         # seperate next game
         next_game = None
         for game in games_schedule:
@@ -56,7 +56,6 @@ class Schedule:
         # pretty_schedule = json.dumps(games_schedule, indent=4)
         # print(pretty_schedule)
 
-
     # def next_game_info(self):
 
     #     next_game = None
@@ -64,7 +63,6 @@ class Schedule:
     #     for game in games_schedule:
     #         if game["game_date"] > self.yesterday:
     #             next_game = game
-
 
     # # return today's game
     #     today_game = None

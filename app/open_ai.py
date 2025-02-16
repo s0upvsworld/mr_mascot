@@ -1,22 +1,20 @@
 from openai import OpenAI
-
-# from stats import lastGame
-from prompts import Prompts
+from app.prompts.prompts_game import Prompts as pgame
+from app.prompts.prompts_personality import mascot_personality
 
 client = OpenAI()
 
 
 class MrMascotAI:
-    def __init__(
-        self, summary, game_date, gameHighlights, ballpark, winning_team, series_status
-    ):
-        self.prompt = Prompts(
-            summary, game_date, gameHighlights, ballpark, winning_team, series_status
-        )
-        self.personality = self.prompt.personality()
-        self.summary = summary
-        self.highlights = gameHighlights
-        self.game_date = game_date
+    def __init__(self, last_game, last_game_highlights, next_game):
+        if last_game is None:
+            winning_team = None
+            print("To be updated")
+        else:
+            self.prompt = pgame(last_game, last_game_highlights, next_game)
+            winning_team = last_game["winning_team"]
+        self.mascot, self.personality, self.body_summary = mascot_personality(winning_team)
+        self.highlights = last_game_highlights
 
     def email_subject(self):
         subject_prompt = self.prompt.subject()
@@ -66,16 +64,11 @@ class MrMascotAI:
 
 
 if __name__ == "__main__":
-    # summary, game_date, gameHighlights = lastGame()
-    # summary, game_date, gameHighlights = 'mets win against marlins 3-2', 'june 13', 'Francisco Lindor 3 run homerun in the 9th inning'
-    summary = "Mets win 4-1"
-    game_date = "10-9-24"
-    gameHighlights = "Francisco Lindor 4 run home run"
-    winning_team = "New York Mets"
-    series_status = "Mets WIN 3-1"
-    ballpark = "Citifield"
+    from app.game_info import GameInfo
+    last_game, last_game_highlights, next_game = GameInfo("New York Mets").last_next_game_schedule()
+
     start = MrMascotAI(
-        summary, game_date, gameHighlights, ballpark, winning_team, series_status
+        last_game, last_game_highlights, next_game
     )
     subject = start.email_subject()
     body = start.email_body()

@@ -5,14 +5,21 @@ from utils import Utilities as ut
 
 class Prompts:
     def __init__(
-        self, game_stats, game_highlights, games_schedule, today_game, today_team, tomorrow_game, tomorrow_team
+        self,
+        game_stats,
+        game_highlights,
+        games_schedule,
+        today_game,
+        today_team,
+        tomorrow_game,
+        tomorrow_team,
     ):
-        #self.personality_roll = ut().roll_d4()
+        # self.personality_roll = ut().roll_d4()
         dayoff_roll = ut().roll_d4()
         if dayoff_roll == 4:
             self.dayoff = "Mrs. Met History"
         else:
-            self.dayoff = "Met\'s History"
+            self.dayoff = "Met's History"
         self.game_stats = game_stats
         if game_stats is None:
             self.game_date = None
@@ -40,14 +47,12 @@ class Prompts:
 
         self.mascot = None
 
-
-
     def personality(self):
         default_personality = """
             You are Mr. Met of the New York Mets. Address the reader only as \'Friend\'. Keep the tone hopeful, pleasant, and whimsical. Use baseball and Met\'s emojis.
             """
         if self.winning_team == "New York Mets":
-            roll = self.personality_roll
+            roll = 1
             if roll == 1 or 2 or 3 or 4:
                 personality = f"{default_personality}"
                 self.mascot = "Mr. Met"

@@ -28,13 +28,15 @@ class Utilities:
 
     def roll_d4():
         return random.randint(1, 4)
-    
+
     def nle():
-        standings = statsapi.standings(division='nle')
+        standings = statsapi.standings(division="nle")
         return standings
-    
+
     def roster(teamId):
-        roster = statsapi.roster(teamId, rosterType=None, season=datetime.now().year, date=None)
+        roster = statsapi.roster(
+            teamId, rosterType=None, season=datetime.now().year, date=None
+        )
         return roster
 
 
