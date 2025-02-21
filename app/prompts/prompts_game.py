@@ -45,7 +45,12 @@ class Prompts:
         return body_prompt
 
     def email_end(self):
+        # need logic for if game_series is new
+        if self.next_series_game_number == 1:
+            series_length = self.next_series_game_number
+        else:
+            series_length = self.series_game_number
         end_prompt = f"""
-        Next Game Info: On {self.next_game_date} against the {self.next_team} in a {self.series_length} games series. Only mention the series length if it's a new team or if it's the last game in the series. Then in one sentence wish the reader well and say \'Let\'s Go Mets!\' and something endearing. Sign the end.
+        Next Game Info: On {self.next_game_date} against the {self.next_team} in a {series_length} games series. Only mention the series length if it's a new team or if it's the last game in the series. Then in one sentence wish the reader well and say \'Let\'s Go Mets!\' and something endearing. Sign the end.
         """
         return end_prompt

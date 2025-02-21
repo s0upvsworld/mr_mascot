@@ -1,6 +1,7 @@
 from openai import OpenAI
 from app.prompts.prompts_game import Prompts as pgame
-from app.prompts.prompts_personality import mascot_personality
+from app.prompts.prompts_dayoff import Prompts as pdayoff
+from app.prompts.prompts_personality import mascot_personality, mascot_personality_dayoff
 
 client = OpenAI()
 
@@ -8,13 +9,13 @@ client = OpenAI()
 class MrMascotAI:
     def __init__(self, last_game, last_game_highlights, next_game):
         if last_game is None:
-            winning_team = None
+            self.prompt = pdayoff(next_game)
+            self.mascot, self.personality = mascot_personality_dayoff()
             print("To be updated")
         else:
             self.prompt = pgame(last_game, last_game_highlights, next_game)
             winning_team = last_game["winning_team"]
-        self.mascot, self.personality, self.body_summary = mascot_personality(winning_team)
-        self.highlights = last_game_highlights
+            self.mascot, self.personality, self.body_summary = mascot_personality(winning_team)
 
     def email_subject(self):
         subject_prompt = self.prompt.subject()

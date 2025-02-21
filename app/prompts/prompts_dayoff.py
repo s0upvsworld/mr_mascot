@@ -1,82 +1,37 @@
-from utils import Utilities as ut
-from prompts_personality import personality
+from app.prompts.prompts_personality import mascot_personality_dayoff
 
 ### OpenAI PERSONALITY
 
 
 class Prompts:
-    def __init__(
-        self,
-        game_stats,
-        games_schedule,
-        today_game,
-        today_team,
-        tomorrow_game,
-        tomorrow_team,
-    ):
-        # self.personality_roll = ut().roll_d4()
-        dayoff_roll = ut().roll_d4()
-        if dayoff_roll == 4:
-            self.dayoff = "Mrs. Met History"
+    def __init__(self, next_game):
+        self.next_gane = next_game
+        self.mascot, self.personality, self.dayoff_fact = mascot_personality_dayoff()
+        if next_game["away_name"] == "New York Mets":
+            self.next_team = next_game["home_name"]
         else:
-            self.dayoff = "Met's History"
-        self.game_stats = game_stats
-        self.today_game = today_game
-        self.games_schedule = games_schedule
-        if today_game is None:
-            self.next_game is tomorrow_game
-            self.next_team is tomorrow_team
-        else:
-            self.next_game is today_game
-            self.next_team is today_team
-        self.mascot = None
-
-    def personality(self):
-        default_personality = """
-            You are Mr. Met of the New York Mets. Address the reader only as \'Friend\'. Keep the tone hopeful, pleasant, and whimsical. Use baseball and Met\'s emojis.
-            """
-        if self.winning_team == "New York Mets":
-            roll = 1
-            if roll == 1 or 2 or 3 or 4:
-                personality = f"{default_personality}"
-                self.mascot = "Mr. Met"
-        else:
-            personality = f"{default_personality}"
-            self.mascot = "Mr. Met"
-        return personality
+            self.next_team = next_game["away_name"]
+        self.next_game_date = next_game["game_date"]
+        self.next_series_status = next_game["series_status"]
+        self.next_series_game_number = next_game["series_game_number"]
+        self.next_series_length = next_game["series_length"]
 
     def subject(self):
-        if not self.game_stats:
-            subject_score = f"""
-            No game played was played yesterday, you will be sharing {self.dayoff} instead.
-            """
-        else:
-            subject_score = f"""
-            Here is the game score from yesterday: {self.game_summary}.
-            """
         subject_prompt = f"""
-        {subject_score} In 35 characters, come up with a quirky subject line for an email to Friend with a Mets update. Do not use quotes or parenthesis.
+        No game played was played yesterday, you will be sharing {self.dayoff_fact} instead.
         """
         return subject_prompt
 
     def body(self):
         prompt_length = "In four sentences and no more than 100 words"
-        if not self.game_stats:
-            body_prompt = f"""
-            Introduce yourself. Start with a note that the Mets did not play yesterday. {prompt_length} give a fact of {self.dayoff}. End with some sort of question like Isnt that neat, Friend? or Dont you think thats cool, Friend? or something similar.
-            """
-        else:
-            mascot_body_summary = """
-            give a summary of the game
-            """
-            body_prompt = f"""
-            Introduce yourself. Then, {prompt_length}, {mascot_body_summary}. Note the ballpark and city the game was played in and . Mention one key highlight that showcases the Met\'s performance. If they won then be very excited. If they lost remain hopeful.\n\nHere is the last game\'s data.\n\n The score: {self.game_summary},\n\nThe highlights: {self.highlights},\n\nGame Date: {self.game_date},\n\nBallpark: {self.ballpark}.
-            """
+        body_prompt = f"""
+        Introduce yourself. Start with a note that the Mets did not play yesterday. {prompt_length} give a fact of {self.dayoff}. End with some sort of question like Isnt that neat, Friend? or Dont you think thats cool, Friend? or something similar.
+        """
         return body_prompt
 
     def email_end(self):
         end_prompt = f"""
-        Note the next game will be {self.next_game} against the {self.next_team} {self.series_length}. Then in one sentence wish the reader well and say \'Let\'s Go Mets!\' and something endearing. Sign the end.
+        Next Game Info: On {self.next_game_date} against the {self.next_team} in a {self.next_series_length} games series. Only mention the series length if it's a new team or if it's the last game in the series. Then in one sentence wish the reader well and say \'Let\'s Go Mets!\' and something endearing. Sign the end.
         """
         return end_prompt
 
