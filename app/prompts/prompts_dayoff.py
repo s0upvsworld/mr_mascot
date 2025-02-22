@@ -1,4 +1,5 @@
 from app.prompts.prompts_personality import mascot_personality_dayoff
+from app.utils import Utilities as ut
 
 ### OpenAI PERSONALITY
 
@@ -15,6 +16,7 @@ class Prompts:
         self.next_series_status = next_game["series_status"]
         self.next_series_game_number = next_game["series_game_number"]
         self.next_series_length = next_game["series_length"]
+        self.today_date = ut().today_date()
 
     def subject(self):
         subject_prompt = f"""
@@ -23,10 +25,28 @@ class Prompts:
         return subject_prompt
 
     def body(self):
-        prompt_length = "In four sentences and no more than 100 words"
-        body_prompt = f"""
-        Introduce yourself. Start with a note that the Mets did not play yesterday. {prompt_length} give a fact of {self.dayoff}. End with some sort of question like Isnt that neat, Friend? or Dont you think thats cool, Friend? or something similar.
-        """
+        if self.today_date == "2025-07-15":
+            prompt_length = "In two sentences and no more than 70 words"
+            body_prompt = f"""
+            Introduce yourself. {prompt_length}, start with a note that the Mets did not play yesterday because it is currently the All-Star Break. Note the All-Star game is scheduled today July 15, 2025 at Truist Park in Atlanta.
+            """
+        elif self.today_date in ("2025-07-16", "2025-07-17"):
+            # all_star_game_info = """The All-Star game was yesterday and HERE IS INFO ABOUT IT"""
+            all_star_game_info = """ """
+            prompt_length = "In three sentences and no more than 80 words"
+            body_prompt = f"""
+            Introduce yourself. {prompt_length}, start with a note that the Mets did not play yesterday because it is currently the All-Star Break. {all_star_game_info}.
+            """
+        elif self.today_date == "2025-07-18":
+            prompt_length = "In two sentences and no more than 70 words"
+            body_prompt = f"""
+            Introduce yourself. {prompt_length}, start with a note that the Mets did not play yesterday because it was the the All-Star Break but the Mets will be playing today against the {self.next_team} in a {self.next_series_length} game series.
+            """
+        else:
+            prompt_length = "In four sentences and no more than 100 words"
+            body_prompt = f"""
+            Introduce yourself. Start with a note that the Mets did not play yesterday. {prompt_length} give a fact of {self.dayoff_fact}. End with some sort of question like Isnt that neat, Friend? or Dont you think thats cool, Friend? or something similar.
+            """
         return body_prompt
 
     def email_end(self):

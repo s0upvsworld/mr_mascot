@@ -1,4 +1,5 @@
 from app.prompts.prompts_personality import mascot_personality
+from app.utils import Utilities as ut
 
 ### OpenAI PERSONALITY
 
@@ -24,6 +25,7 @@ class Prompts:
         self.mascot, self.personality, self.body_summary = mascot_personality(
             self.winning_team
         )
+        self.today_date = ut().today_date()
 
     def subject(self):
         subject_score = f"""
@@ -40,17 +42,24 @@ class Prompts:
         """
         prompt_length = "In four sentences and no more than 100 words"
         body_prompt = f"""
-        Introduce yourself. Then, {prompt_length}, {self.body_summary}. Note the ballpark and city the game was played in. Mention one key highlight that showcases the Met\'s performance. If they won then be very excited. If they lost remain hopeful.\n\nHere is the last game\'s data.\n\n The score: {self.game_summary},\n\nThe highlights: {self.game_highlights},\n\nGame Date: {self.game_date},\n\nBallpark: {self.ballpark},\n\nSeries Info:{series_info}.
+        Introduce yourself. Then, {prompt_length}, {self.body_summary}. Note the ballpark and city the game was played in and what game of the seriesi it is. Mention one key highlight that showcases the Met\'s performance. If they won then be very excited. If they lost remain hopeful.\n\nHere is the last game\'s data.\n\n The score: {self.game_summary},\n\nThe highlights: {self.game_highlights},\n\nGame Date: {self.game_date},\n\nBallpark: {self.ballpark},\n\nSeries Info:{series_info}.
         """
         return body_prompt
 
     def email_end(self):
-        # need logic for if game_series is new
         if self.next_series_game_number == 1:
-            series_length = self.next_series_game_number
+            series_length = f"""
+            It will be the first game in a {self.next_series_length} game series
+            """
         else:
-            series_length = self.series_game_number
+            series_length = f"""
+            It will be game number {self.series_game_number} in the current {self.series_length} game series
+            """
+        if self.next_game_date == self.today_date:
+            today_or_not = "Today"
+        else:
+            today_or_not = f"On {self.next_game_date}"
         end_prompt = f"""
-        Next Game Info: On {self.next_game_date} against the {self.next_team} in a {series_length} games series. Only mention the series length if it's a new team or if it's the last game in the series. Then in one sentence wish the reader well and say \'Let\'s Go Mets!\' and something endearing. Sign the end.
+        Next Game Info: {today_or_not} against the {self.next_team}. {series_length}. Only mention the series length if it's a new team or if it's the last game in the series. Then in one sentence wish the reader well and say \'Let\'s Go Mets!\' and something endearing. Sign the end.
         """
         return end_prompt
