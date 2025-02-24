@@ -55,11 +55,7 @@ class Prompts:
             series_length = f"""
             It will be game number {self.series_game_number} in the current {self.series_length} game series
             """
-        if self.next_game_date == self.today_date:
-            today_or_not = "Today"
-        else:
-            today_or_not = f"On {self.next_game_date}"
         end_prompt = f"""
-        Next Game Info: {today_or_not} against the {self.next_team}. {series_length}. Only mention the series length if it's a new team or if it's the last game in the series. Then in one sentence wish the reader well and say \'Let\'s Go Mets!\' and something endearing. Sign the end.
+        Today's Date: {self.today_date}.\n\nNext Game Info: {self.next_game_date} against the {self.next_team}. {series_length}. \n\nOnly mention the series length if it's a new team or if it's the last game in the series. The reader will be reading this and the previous paragraph together, so no need to great them again. Then in one sentence wish the reader well and say \'Let\'s Go Mets!\' and something endearing. Sign the end.
         """
         return end_prompt

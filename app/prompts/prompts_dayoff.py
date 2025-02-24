@@ -20,7 +20,7 @@ class Prompts:
 
     def subject(self):
         subject_prompt = f"""
-        No game played was played yesterday, you will be sharing {self.dayoff_fact} instead.
+        In 35 characters, come up with a subject line for an email to Friend with a Mets update. Do not use quotes or parenthesis. No game played was played yesterday, you will be sharing {self.dayoff_fact} instead.
         """
         return subject_prompt
 
@@ -45,13 +45,17 @@ class Prompts:
         else:
             prompt_length = "In four sentences and no more than 100 words"
             body_prompt = f"""
-            Introduce yourself. Start with a note that the Mets did not play yesterday. {prompt_length} give a fact of {self.dayoff_fact}. End with some sort of question like Isnt that neat, Friend? or Dont you think thats cool, Friend? or something similar.
+            Introduce yourself. Start with a note that the Mets did not play yesterday. {prompt_length} give a fact about {self.dayoff_fact}. End with some sort of question like Isnt that neat, Friend? or Dont you think thats cool, Friend? or something similar.
             """
         return body_prompt
 
     def email_end(self):
+        if self.next_series_game_number == 1:
+            series_length = f"""
+            It will be the first game in a {self.next_series_length} game series
+            """
         end_prompt = f"""
-        Next Game Info: On {self.next_game_date} against the {self.next_team} in a {self.next_series_length} games series. Only mention the series length if it's a new team or if it's the last game in the series. Then in one sentence wish the reader well and say \'Let\'s Go Mets!\' and something endearing. Sign the end.
+        Today's Date: {self.today_date}.\n\nNext Game Info: {self.next_game_date} against the {self.next_team}. {series_length}. \n\nOnly mention the series length if it's a new team or if it's the last game in the series. Do not greet the reader again. Then in one sentence wish the reader well and say \'Let\'s Go Mets!\' and something endearing. Sign the end.
         """
         return end_prompt
 

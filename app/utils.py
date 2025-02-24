@@ -8,7 +8,7 @@ class Utilities:
         self.today = datetime.now().date().strftime("%Y-%m-%d")
 
         # date for testing
-        self.today = datetime.strptime("2024-08-05", "%Y-%m-%d").date()
+        self.today = datetime.strptime("2024-08-03", "%Y-%m-%d").date()
 
     def today_date(self):
         return self.today

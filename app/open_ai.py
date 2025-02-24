@@ -1,7 +1,10 @@
 from openai import OpenAI
 from app.prompts.prompts_game import Prompts as pgame
 from app.prompts.prompts_dayoff import Prompts as pdayoff
-from app.prompts.prompts_personality import mascot_personality, mascot_personality_dayoff
+from app.prompts.prompts_personality import (
+    mascot_personality,
+    mascot_personality_dayoff,
+)
 
 client = OpenAI()
 
@@ -10,17 +13,20 @@ class MrMascotAI:
     def __init__(self, last_game, last_game_highlights, next_game):
         if last_game is None:
             self.prompt = pdayoff(next_game)
-            self.mascot, self.personality = mascot_personality_dayoff()
-            print("To be updated")
+            self.mascot, self.personality, self.dayoff_fact = (
+                mascot_personality_dayoff()
+            )
         else:
             self.prompt = pgame(last_game, last_game_highlights, next_game)
             winning_team = last_game["winning_team"]
-            self.mascot, self.personality, self.body_summary = mascot_personality(winning_team)
+            self.mascot, self.personality, self.body_summary = mascot_personality(
+                winning_team
+            )
 
     def email_subject(self):
         subject_prompt = self.prompt.subject()
         subject_init = client.chat.completions.create(
-            model="gpt-4-turbo",
+            model="gpt-4o",
             messages=[
                 {"role": "system", "content": self.personality},
                 {"role": "user", "content": subject_prompt},
@@ -34,7 +40,7 @@ class MrMascotAI:
     def email_body(self):
         body_prompt = self.prompt.body()
         body_init = client.chat.completions.create(
-            model="gpt-4-turbo",
+            model="gpt-4o",
             messages=[
                 {"role": "system", "content": self.personality},
                 {"role": "user", "content": self.subject_prompt},
@@ -50,7 +56,7 @@ class MrMascotAI:
     def email_end(self):
         end_prompt = self.prompt.email_end()
         end_init = client.chat.completions.create(
-            model="gpt-4-turbo",
+            model="gpt-4o",
             messages=[
                 {"role": "system", "content": self.personality},
                 {"role": "user", "content": self.subject_prompt},
@@ -66,11 +72,12 @@ class MrMascotAI:
 
 if __name__ == "__main__":
     from app.game_info import GameInfo
-    last_game, last_game_highlights, next_game = GameInfo("New York Mets").last_next_game_schedule()
 
-    start = MrMascotAI(
-        last_game, last_game_highlights, next_game
-    )
+    last_game, last_game_highlights, next_game = GameInfo(
+        "New York Mets"
+    ).last_next_game_schedule()
+
+    start = MrMascotAI(last_game, last_game_highlights, next_game)
     subject = start.email_subject()
     body = start.email_body()
     end = start.email_end()
