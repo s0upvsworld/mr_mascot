@@ -54,7 +54,7 @@ class MrMascotAI:
         return body
 
     def email_end(self):
-        end_prompt = self.prompt.email_end()
+        end_prompt = self.prompt.end()
         end_init = client.chat.completions.create(
             model="gpt-4o",
             messages=[

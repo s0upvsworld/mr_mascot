@@ -5,10 +5,12 @@ import statsapi
 
 class Utilities:
     def __init__(self):
-        self.today = datetime.now().date().strftime("%Y-%m-%d")
-
-        # date for testing
-        self.today = datetime.strptime("2024-08-03", "%Y-%m-%d").date()
+        self.today = datetime.now().date()
+        self.weekday = datetime.now().strftime("%a")
+        
+        ### date for testing
+        # self.today = datetime.strptime("2024-08-03", "%Y-%m-%d").date()
+        # self.weekday = 'Mon'
 
     def today_date(self):
         return self.today
@@ -26,11 +28,15 @@ class Utilities:
         seven = self.today + (timedelta(days=7))
         return minus_seven, seven
 
+    def week_day(self):
+        return self.weekday
+
     def roll_d4():
         return random.randint(1, 4)
 
     def nle():
         standings = statsapi.standings(division="nle")
+        # standings = statsapi.standings(division="nle", date="08/03/2024")
         return standings
 
     def roster(teamId):

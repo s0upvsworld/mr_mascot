@@ -1,4 +1,5 @@
 from app.prompts.prompts_personality import mascot_personality
+from app.prompts.prompts_end import email_end
 from app.utils import Utilities as ut
 
 ### OpenAI PERSONALITY
@@ -26,6 +27,7 @@ class Prompts:
             self.winning_team
         )
         self.today_date = ut().today_date()
+        self.weekday = ut().week_day()
 
     def subject(self):
         subject_score = f"""
@@ -46,16 +48,13 @@ class Prompts:
         """
         return body_prompt
 
-    def email_end(self):
-        if self.next_series_game_number == 1:
-            series_length = f"""
-            It will be the first game in a {self.next_series_length} game series
-            """
-        else:
-            series_length = f"""
-            It will be game number {self.series_game_number} in the current {self.series_length} game series
-            """
-        end_prompt = f"""
-        Today's Date: {self.today_date}.\n\nNext Game Info: {self.next_game_date} against the {self.next_team}. {series_length}. \n\nOnly mention the series length if it's a new team or if it's the last game in the series. The reader will be reading this and the previous paragraph together, so no need to great them again. Then in one sentence wish the reader well and say \'Let\'s Go Mets!\' and something endearing. Sign the end.
-        """
+    def end(self):
+        end_prompt = email_end(
+            self.weekday,
+            self.next_series_game_number,
+            self.next_series_length,
+            self.today_date,
+            self.next_game_date,
+            self.next_team,
+        )
         return end_prompt

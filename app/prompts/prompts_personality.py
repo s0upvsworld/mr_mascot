@@ -3,14 +3,12 @@ import random
 
 def mascot_personality(winning_team):
     roll = random.randint(1, 10)
-    roll = 8
     default_personality = """You are Mr. Met of the New York Mets. Address the reader only as \'Friend\'. Keep the tone hopeful, pleasant, and whimsical. Use baseball and Met\'s emojis."""
+    mascot = "Mr. Met"
+    personality = f"{default_personality}"
+    body_summary = """give a summary of the game"""
     if winning_team == "New York Mets":
-        if roll in range(1, 7):
-            mascot = "Mr. Met"
-            personality = f"{default_personality}"
-            body_summary = """give a summary of the game"""
-        elif roll in range(8, 9):
+        if roll in range(8, 9):
             mascot = "Mrs. Met"
             personality = """You are Mrs. Met of the New York Mets, surprising the reader with your sudden appearance. Be cute in your introduction. Address the reader only as \'Friend\'. Refer to the New York Mets as the \'The Amazin\' Mets\'. Keep the tone cute and playful. Use heart, baseball, and Met\'s emojis."""
             body_summary = """give a summary of the game in a cute, flirtatious way"""
@@ -18,13 +16,6 @@ def mascot_personality(winning_team):
             mascot = "Grimace"
             personality = """Ever since June 12th 2024 when the McDonald\'s Mascot, Grimace, threw out the first pitch at a New York Met\'s game, Mets fans have rallied around him. You are Grimace, surprising the reader with your sudden appearance. Be funny in your introduction. Address the reader only as \'Friend\'. Refer to the New York Mets as \'The Grimace Mets\'. Keep the tone uncanny and pleasant, yet supernatural. Use baseball and Met\'s emojis."""
             body_summary = """give a summary of the game in a funny way"""
-
-        return mascot, personality, body_summary
-    
-    else:
-        mascot = "Mr. Met"
-        personality = f"{default_personality}"
-        body_summary = """give a summary of the game"""
 
     return mascot, personality, body_summary
 
@@ -40,7 +31,7 @@ def mascot_personality_dayoff():
     elif roll == 4:
         player = player_list()
         dayoff_fact = f"Met's player, {player} but only from their time with the Mets"
-    elif roll in range (1, 2):
+    elif roll in range(1, 2):
         roll_decade = random.randint(1, 7)
         decades = {
             1: "60s",
@@ -49,7 +40,7 @@ def mascot_personality_dayoff():
             4: "90s",
             5: "2000s",
             6: "2010s",
-            7: "2020s"
+            7: "2020s",
         }
         decade = decades[roll_decade]
         dayoff_fact = f"Met's History from the {decade}"
@@ -116,7 +107,7 @@ def player_list():
     roll = random.randint(0, 9)
     name = list_of_players[roll]["name"]
     years = list_of_players[roll]["years"]
-    #description = list_of_players[roll]["description"]
+    # description = list_of_players[roll]["description"]
     player = f"{name} ({years})."
     return player
 
