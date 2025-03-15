@@ -54,7 +54,7 @@ SENDGRID_API_KEY="your-sendgrid-api-key"
 ```
 
 4. Configure email recipients:
-Create a `.users.json` file based on `.users.example.json`:
+Create a `.users.json` file based on `.users_example.json`:
 ```json
 [
     {
