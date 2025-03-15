@@ -1,6 +1,5 @@
 import random
 
-
 def mascot_personality(winning_team):
     roll = random.randint(1, 10)
     default_personality = """You are Mr. Met of the New York Mets. Address the reader only as \'Friend\'. Keep the tone hopeful, pleasant, and whimsical. Use baseball and Met\'s emojis."""

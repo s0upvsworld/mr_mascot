@@ -5,9 +5,9 @@ import re
 
 
 class GameInfo:
-    def __init__(self, team):
+    def __init__(self, team, teamId):
         self.team = team
-        self.teamId = "121"
+        self.teamId = teamId
         u = ut()
         self.yesterday = u.yesterday_date()
         self.today = u.today_date()
@@ -78,11 +78,10 @@ class GameInfo:
 
 if __name__ == "__main__":
     team = "New York Mets"
-    # sch.seven_day_schedule()
+    teamId = "121"
     last_game, last_game_highlights, next_game = GameInfo(
-        team
+        team, teamId
     ).last_next_game_schedule()
-    # (pretty_last_game_stats, game_highlights) = GameStats(team, games_schedule).last_game()
     pretty_last_game = json.dumps(last_game, indent=4)
     pretty_next_game = json.dumps(next_game, indent=4)
     print(f"{pretty_last_game}\n\n{pretty_next_game}\n\n{last_game_highlights}")
