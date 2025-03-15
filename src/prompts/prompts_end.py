@@ -1,4 +1,4 @@
-from app.utils import Utilities as ut
+from src.utils import Utilities as ut
 
 
 def email_end(

@@ -1,6 +1,6 @@
 import json
-from app.game_info import GameInfo as gi
-from app.open_ai import MrMascotAI as mr
+from src.game_info import GameInfo as gi
+from src.open_ai import MrMascotAI as mr
 
 
 def game():

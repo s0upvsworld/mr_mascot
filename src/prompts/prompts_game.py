@@ -1,6 +1,6 @@
-from app.prompts.prompts_personality import mascot_personality
-from app.prompts.prompts_end import email_end
-from app.utils import Utilities as ut
+from src.prompts.prompts_personality import mascot_personality
+from src.prompts.prompts_end import email_end
+from src.utils import Utilities as ut
 
 ### OpenAI PERSONALITY
 

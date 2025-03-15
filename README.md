@@ -1,18 +1,37 @@
-# Mr. Mascot
+# Mr. Mascot 🎭⚾
 
-A Python-based project for managing and interacting with mascot-related functionalities.
+A personalized AI baseball companion that delivers daily email updates about the New York Mets. Mr. Mascot combines real-time MLB data with an engaging AI personality to create informative and entertaining updates about games, series progress, and team facts.
 
-## 🚀 Features
+## 🌟 Features
 
-- OpenAI integration for mascot interactions
-- Game information management
-- Scheduling system
-- Statistics tracking
-- Utility functions for data processing
+- **Smart Game Recaps**: 
+  - Detailed game summaries with scores and key moments
+  - Play-by-play highlights from yesterday's game
+  - Venue and series progress information
+  - AI-crafted commentary that celebrates wins and stays hopeful after losses
+
+- **Series Intelligence**: 
+  - Tracks multi-game series progress
+  - Provides context about series length and game numbers
+  - Updates on upcoming matchups and opponents
+
+- **Special Off-Day Content**:
+  - Engaging team facts during non-game days
+  - Special coverage during All-Star break
+  - Monday updates include division standings
+  - Maintains fan engagement even without games
+
+- **Personality-Driven Communication**:
+  - Dynamic AI personality that adapts to game outcomes
+  - Concise 35-character email subjects
+  - Friendly, conversational tone
+  - Word-limited responses for optimal readability
 
 ## 📋 Prerequisites
 
 - Python 3.x
+- OpenAI API key
+- SendGrid API key
 
 ## 🛠️ Installation
 
@@ -27,12 +46,28 @@ cd mr_mascot
 pip install -r requirements.txt
 ```
 
-3. Set up environment variables:
-Create a `.env` file with required configuration (see `.env.example` for reference)
+3. Configure environment variables:
+Create a `.env` file with:
+```
+OPENAI_API_KEY="your-openai-api-key"
+SENDGRID_API_KEY="your-sendgrid-api-key"
+```
 
-## 🚀 Usage
+4. Configure email recipients:
+Create a `.users.json` file based on `.users.example.json`:
+```json
+[
+    {
+        "id": 1,
+        "name": "Friend",
+        "email": "friend@example.com"
+    }
+]
+```
 
-Run the main application:
+## ⚙️ Usage
+
+Run the application:
 ```bash
 python main.py
 ```
@@ -40,7 +75,3 @@ python main.py
 ## 📝 License
 
 This project is licensed under the terms included in the LICENSE file.
-
-## 🤝 Contributing
-
-Contributions, issues, and feature requests are welcome!

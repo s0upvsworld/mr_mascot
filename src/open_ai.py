@@ -1,10 +1,12 @@
 from openai import OpenAI
-from app.prompts.prompts_game import Prompts as pgame
-from app.prompts.prompts_dayoff import Prompts as pdayoff
-from app.prompts.prompts_personality import (
+from src.prompts.prompts_game import Prompts as pgame
+from src.prompts.prompts_dayoff import Prompts as pdayoff
+from src.prompts.prompts_personality import (
     mascot_personality,
     mascot_personality_dayoff,
+    mascot_personality_dayoff_sick,
 )
+from src.game_info import GameInfo
 
 client = OpenAI()
 
@@ -71,8 +73,6 @@ class MrMascotAI:
 
 
 if __name__ == "__main__":
-    from app.game_info import GameInfo
-
     last_game, last_game_highlights, next_game = GameInfo(
         "New York Mets"
     ).last_next_game_schedule()
