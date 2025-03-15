@@ -1,4 +1,4 @@
-# Mr. Mascot 🎭⚾
+# Mr. Mascot ⚾
 
 A personalized AI baseball companion that delivers daily email updates about the New York Mets. Mr. Mascot combines real-time MLB data with an engaging AI personality to create informative and entertaining updates about games, series progress, and team facts.
 
