@@ -6,6 +6,7 @@ __pycache__/
 
 # User Data
 .users.json
+.users_complete.json
 
 # IDE
 .vscode/
