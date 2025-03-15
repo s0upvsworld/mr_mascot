@@ -7,7 +7,7 @@ class Utilities:
     def __init__(self):
         self.today = datetime.now().date()
         self.weekday = datetime.now().strftime("%a")
-        
+
         ### date for testing
         # self.today = datetime.strptime("2024-08-03", "%Y-%m-%d").date()
         # self.weekday = 'Mon'

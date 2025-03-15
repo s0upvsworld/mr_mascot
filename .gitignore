@@ -5,7 +5,7 @@ __pycache__/
 .ruff_cache/
 
 # User Data
-.users.json
+# .users.json
 
 # IDE
 .vscode/

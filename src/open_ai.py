@@ -3,7 +3,7 @@ from src.prompts.prompts_game import Prompts as pgame
 from src.prompts.prompts_dayoff import Prompts as pdayoff
 from src.prompts.prompts_personality import (
     mascot_personality,
-    mascot_personality_dayoff
+    mascot_personality_dayoff,
 )
 from src.game_info import GameInfo
 

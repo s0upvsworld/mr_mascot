@@ -23,7 +23,7 @@ def email_end(
         """
     else:
         monday_nle_standings = " "
-    
+
     end_prompt = f"""-Do not greet the reader again.\n\n
     {monday_nle_standings}
     -In one sentence notify the reader on the next game:
