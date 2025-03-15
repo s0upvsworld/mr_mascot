@@ -31,6 +31,6 @@ def email_end(
     --Next Game Info: {next_game_date} against the {next_team}. {series_length}.\n\n
     --Only mention the series length if it's a new team or if it's the last game in the series.\n\n 
     --Do not say the year, and if the game is tonight, only say that.\n\n
-    -Then in one sentence wish Friend well and say \'Let\'s Go Mets!\' and something endearing. Sign the end.
+    -Then in one sentence wish Friend well and sign the end.
     """
     return end_prompt
