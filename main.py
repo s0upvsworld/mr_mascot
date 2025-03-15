@@ -1,22 +1,35 @@
 import json
-from app.utils import Utilities as ut
-from app.stats import GameStats as sta
-from app.schedule import Schedule as sch
+from app.game_info import GameInfo as gi
+from app.open_ai import MrMascotAI as mr
 
-team = "New York Mets"
-teamId = "121"
 
-games_schedule, today_game, tomorrow_game = sch(team).seven_day_schedule()
+def game():
+    last_game, last_game_highlights, next_game = gi(
+    "New York Mets"
+    ).last_next_game_schedule()
+    return last_game, last_game_highlights, next_game
 
-pretty_games_schedule = json.dumps(games_schedule, indent=4)
-pretty_today_game = json.dumps(today_game, indent=4)
-pretty_tomorrow_game = json.dumps(tomorrow_game, indent=4)
+def mascot(last_game, last_game_highlights, next_game):
+    start = mr(last_game, last_game_highlights, next_game)
+    subject = start.email_subject()
+    body = start.email_body()
+    end = start.email_end()
+    return subject, body, end
 
-print(
-    f"Pretty Games Schedule: {pretty_games_schedule}\n\nPretty Today Game: {pretty_today_game}\n\nPretty Tomorrow Game: {pretty_tomorrow_game}"
-)
+def users():
+    with open('.users.json', 'r') as f:
+        users = json.load(f)
 
-game_stats, game_highlights = sta(team, games_schedule).last_game()
+    print(users)
+    return users
 
-pretty_last_game_stats = json.dumps(game_stats, indent=4)
-print(f"{pretty_last_game_stats}")
+def send():
+    print('start')
+
+def main():
+    start = users()
+    print(start)
+
+
+if __name__ == "__main__":
+    main()

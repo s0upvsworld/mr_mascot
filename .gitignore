@@ -4,7 +4,9 @@
 !.env.example
 
 # Python
-__pycache__/
+__pycache__/.
+app/prompts/__pycache__/.
+app/__pycache__/.
 *.py[cod]
 *$py.class
 *.so
@@ -45,3 +47,5 @@ htmlcov/
 
 # Logs
 *.log
+
+.users.json
