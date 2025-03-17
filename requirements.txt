@@ -4,3 +4,4 @@ sendgrid
 requests
 python-dotenv
 ruff
+flask
