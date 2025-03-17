@@ -61,8 +61,8 @@ def send(email_data, email):
 def main():
     ### load team data
     load_dotenv()
-    team = os.environ.get("TEAM")
-    teamId = os.environ.get("TEAMID")
+    team = os.getenv("TEAM")
+    teamId = os.getenv("TEAMID")
 
     ### obtain team info
     last_game, last_game_highlights, next_game = game(team, teamId)
