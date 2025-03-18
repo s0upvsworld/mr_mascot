@@ -3,20 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign up for Mr. Mascot</title>
+    <title>mr. mascot</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div class="container">
-        <h1>⚾ Sign up for Mr. Mascot</h1>
+        <h1>SIGN UP</h1>
         <div class="description">
-            <p>Get daily AI-powered updates about the New York Mets!</p>
-            <ul>
-                <li>Smart game recaps and highlights</li>
-                <li>Series progress updates</li>
-                <li>Special off-day content</li>
-                <li>Friendly, personality-driven communication</li>
-            </ul>
         </div>
 
         {% with messages = get_flashed_messages(with_categories=true) %}
@@ -31,16 +24,16 @@
 
         <form method="POST" action="{{ url_for('index') }}">
             <div class="form-group">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                <label for="name">first name:</label>
+                <input type="text" id="name" name="name" placeholder="who that" required>
             </div>
             
             <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                <label for="email">email:</label>
+                <input type="email" id="email" name="email" placeholder="where to" required>
             </div>
 
-            <button type="submit">Subscribe</button>
+            <button type="submit">lets go mets!</button>
         </form>
     </div>
 </body>
