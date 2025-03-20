@@ -31,7 +31,7 @@ def mascot_personality_dayoff():
     elif roll == 4:
         player = player_list()
         dayoff_fact = f"Met's player, {player} but only from their time with the Mets"
-    elif roll in range(1, 2):
+    elif roll in range(1, 3):
         roll_decade = random.randint(1, 7)
         decades = {
             1: "60s",
