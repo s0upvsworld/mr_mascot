@@ -63,6 +63,31 @@ def index():
     
     return render_template('index.html')
 
+@app.route('/prompt', methods=['GET', 'POST'])
+def prompt():
+    if request.method == 'POST':
+        name = request.form.get('name', '').strip()
+        email = request.form.get('email', '').strip()
+        
+        # Validation
+        if not name:
+            flash('Please enter your name!', 'error')
+        elif not email:
+            flash('Please enter your email!', 'error')
+        elif not is_valid_email(email):
+            flash('Please enter a valid email address!', 'error')
+        else:
+            success, message = add_user(name, email)
+            if success:
+                flash(message, 'success')
+                return redirect(url_for('index'))
+            else:
+                flash(message, 'error')
+    
+    return render_template('index.html')
+
+
+
 if __name__ == '__main__':
     # Verify users file exists
     if not os.path.exists(USERS_FILE):
