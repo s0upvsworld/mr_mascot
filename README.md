@@ -1,31 +1,32 @@
 # Mr. Mascot ⚾
 
-A personalized AI baseball companion that delivers daily email updates about the New York Mets. Mr. Mascot combines real-time MLB data with an engaging AI personality to create informative and entertaining updates about games, series progress, and team facts.
+A personalized AI baseball companion that delivers daily email updates about your favorite MLB team. Mr. Mascot combines real-time MLB data with an AI personality to create informative and entertaining updates about games, series progress, and team facts.
 
 ## 🌟 Features
 
 - **Smart Game Recaps**: 
   - Detailed game summaries with scores and key moments
-  - Play-by-play highlights from yesterday's game
-  - Venue and series progress information
+  - Key game highlight from yesterday's game
+  - Ballpark information
   - AI-crafted commentary that celebrates wins and stays hopeful after losses
 
 - **Series Intelligence**: 
   - Tracks multi-game series progress
-  - Provides context about series length and game numbers
+  - Provides context about series length
   - Updates on upcoming matchups and opponents
 
 - **Special Off-Day Content**:
   - Engaging team facts during non-game days
   - Special coverage during All-Star break
   - Monday updates include division standings
-  - Maintains fan engagement even without games
 
 - **Personality-Driven Communication**:
   - Dynamic AI personality that adapts to game outcomes
-  - Concise 35-character email subjects
+  - Concise emails for readability
   - Friendly, conversational tone
-  - Word-limited responses for optimal readability
+
+- **User Signup via Flask Server**:
+  - Run the Flask server to sign up users 
 
 ## 📋 Prerequisites
 
@@ -70,6 +71,11 @@ Create a `.users.json` file based on `.users_example.json`:
 Run the application:
 ```bash
 python main.py
+```
+
+Run the Flask server:
+```bash
+flask run
 ```
 
 ## 📝 License
