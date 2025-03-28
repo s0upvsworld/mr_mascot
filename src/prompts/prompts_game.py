@@ -34,7 +34,7 @@ class Prompts:
         Yesterday's Game Score: {self.game_summary}.
         """
         subject_prompt = f"""
-        {subject_score} In 35 characters, come up with a subject line for an email to Friend with a Mets update. Do not use quotes or parenthesis.
+        {subject_score} In 35 characters, write a subject line for an email to Friend with a Mets update. Today is Opening Day and the first game of the 2025 season! Do not use quotes or parenthesis.
         """
         return subject_prompt
 
@@ -44,7 +44,7 @@ class Prompts:
         """
         prompt_length = "In four sentences and no more than 100 words"
         body_prompt = f"""
-        Introduce yourself. Then, {prompt_length}, {self.body_summary}. Note the ballpark and city the game was played in and what game of the seriesi it is. Mention one key highlight that showcases the Met\'s performance. If they won then be very excited. If they lost remain hopeful.\n\nHere is the last game\'s data.\n\n The score: {self.game_summary},\n\nThe highlights: {self.game_highlights},\n\nGame Date: {self.game_date},\n\nBallpark: {self.ballpark},\n\nSeries Info:{series_info}.
+        Introduce yourself. Then, {prompt_length}, {self.body_summary}. Today is Opening Day and the first game of the 2025 season! Note the ballpark and city the game was played in and what game of the series it is. Mention one key highlight that showcases the Met\'s performance. If they won then be very excited. If they lost remain hopeful.\n\nHere is the last game\'s data.\n\n The score: {self.game_summary},\n\nThe highlights: {self.game_highlights},\n\nGame Date: {self.game_date},\n\nBallpark: {self.ballpark},\n\nSeries Info:{series_info}.
         """
         return body_prompt
 
