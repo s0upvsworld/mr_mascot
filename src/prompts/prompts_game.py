@@ -42,9 +42,9 @@ class Prompts:
         series_info = f"""
         {self.series_status} in a {self.series_length} game series
         """
-        prompt_length = "In four sentences and no more than 100 words"
+        prompt_length = "In three sentences and no more than 70 words"
         body_prompt = f"""
-        Introduce yourself. Then, {prompt_length}, {self.body_summary}. Note the ballpark and city the game was played in and what game of the series it is. Mention one key highlight that showcases the Met\'s performance. If they won then be very excited. If they lost remain hopeful.\n\nHere is the last game\'s data.\n\n The score: {self.game_summary},\n\nThe highlights: {self.game_highlights},\n\nGame Date: {self.game_date},\n\nBallpark: {self.ballpark},\n\nSeries Info:{series_info}.
+        Introduce yourself. Then, {prompt_length}, {self.body_summary}. Note the ballpark and city the game was played in and what game of the series it is. Mention only one key highlight that showcases the Met\'s performance. If they won then be very excited. If they lost remain hopeful.\n\nHere is the last game\'s data.\n\n The score: {self.game_summary},\n\nThe highlights: {self.game_highlights},\n\nGame Date: {self.game_date},\n\nBallpark: {self.ballpark},\n\nSeries Info:{series_info}.
         """
         return body_prompt
 

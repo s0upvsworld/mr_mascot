@@ -31,7 +31,7 @@ def users():
 def format_email(user, email_data):
     ### string variables
     replace_name = "Friend"
-    unsubscribe = "\n\n(If you'd like to part ways with Mr. Met's updates, simply reply with “unsubscribe”)"
+    # unsubscribe = "\n\n(If you'd like to part ways with Mr. Met's updates, simply reply with “unsubscribe”)"
 
     ### get definitions
     name = user.get("name")
@@ -46,7 +46,7 @@ def format_email(user, email_data):
     full_end = end.replace(replace_name, name)
 
     ### make email body
-    combine = f"{new_body} \n\n{full_end} \n\n\n\n{unsubscribe}"
+    combine = f"{new_body} \n\n{full_end}"
     full_body = combine.replace("\n", "<br>")
     send_email_data = {"subject": full_subject, "body": full_body}
     return send_email_data, email
